@@ -3,6 +3,7 @@ FROM alpine
 RUN apk add --update --no-cache \
     bash \
     zip \
+    curl \
     grep \
     openssl \
     make \
