@@ -64,7 +64,6 @@ vpn_connect() {
         ${VPN_GATEWAY} \
         -vvvvv
 }
-vpn_connect
 
 
 git_ftp_push() {
