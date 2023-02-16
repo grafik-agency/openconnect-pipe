@@ -3,7 +3,6 @@ FROM alpine
 RUN apk add --update --no-cache \
     bash \
     zip \
-    libssh2 \
     ssh \
     curl \
     grep \
