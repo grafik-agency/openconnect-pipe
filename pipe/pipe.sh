@@ -19,6 +19,7 @@ VPN_USER=${VPN_USER:?'VPN_USER variable missing.'}
 VPN_PASSWORD=${VPN_PASSWORD:?'VPN_PASSWORD variable missing.'}
 VPN_GATEWAY=${VPN_GATEWAY:?'VPN_GATEWAY variable missing.'}
 VPN_PROTOCOL=${VPN_PROTOCOL:?'VPN_PROTOCOL variable missing.'}
+VPN_SERVER_CERT=${VPN_SERVER_CERT:?'VPN_SERVER_CERT variable missing.'}
 FTP_SERVER=${FTP_SERVER:?'FTP_SERVER variable missing.'}
 FTP_USER=${FTP_USER:?'FTP_USER variable missing.'}
 FTP_PASSWORD=${FTP_PASSWORD:?'FTP_PASSWORD variable missing.'}
@@ -54,17 +55,14 @@ git_ftp_configure
 
 vpn_connect() {
     info "Attempting to connect to VPN"
-    openconnect \
+    echo -n ${VPN_PASSWORD} | openconnect \
         --protocol=${VPN_PROTOCOL} \
         --user ${VPN_USER} \
         --passwd-on-stdin \
         --background \
+        --servercert ${VPN_SERVER_CERT} \
         ${VPN_GATEWAY}
 
-    echo ${VPN_PASSWORD}
-    echo yes
-}
-vpn_connect
 
 git_ftp_push() {
     info "Attempting to push files..."
