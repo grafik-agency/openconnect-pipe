@@ -58,7 +58,7 @@ vpn_connect() {
         --protocol=${VPN_PROTOCOL} \
         --user ${VPN_USER} \
         --passwd-on-stdin \
-        --background
+        --background \
         ${VPN_GATEWAY}
 }
 vpn_connect
