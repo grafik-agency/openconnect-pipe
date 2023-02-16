@@ -43,7 +43,7 @@ git_ftp_configure() {
 
     # checkout the latest tag
     git checkout "$tag"
-    sudo make install
+    make install
     cd
 
     git config git-ftp.url "${FTP_SERVER}"
@@ -52,7 +52,6 @@ git_ftp_configure() {
 }
 git_ftp_configure
 
-# copies repo ssh keys into pipe image
 vpn_connect() {
     info "Attempting to connect to VPN"
     echo ${VPN_PASSWORD} | openconnect \
