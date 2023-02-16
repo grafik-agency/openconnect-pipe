@@ -2,8 +2,6 @@ FROM alpine
 
 RUN apk add --update --no-cache \
     bash \
-    head \
-    sed \
     zip \
     grep \
     openssl \
