@@ -1,14 +1,13 @@
-FROM alpine
+FROM archlinux
 
-RUN apk add --update --no-cache \
+RUN pacman -Syu
+RUN pacman-key --init
+RUN pacman -S \
     bash \
     zip \
-    libssh2 \
     openssh \
-    curl \
     grep \
     openssl \
-    make \
     git \
     openconnect
 
