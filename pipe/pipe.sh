@@ -25,14 +25,25 @@ FTP_USER=${FTP_USER:?'FTP_USER variable missing.'}
 FTP_PASSWORD=${FTP_PASSWORD:?'FTP_PASSWORD variable missing.'}
 GIT_NAME=${GIT_NAME:?'GIT_NAME variable missing.'}
 GIT_EMAIL=${GIT_EMAIL:?'GIT_EMAIL variable missing.'}
+THEME_NAME=${THEME_NAME:?'THEME_NAME variable missing.'}
+ARTIFACT=${ARTIFACT:?'ARTIFACT variable missing.'}
 
 
 info "Running OpenConnect pipe..."
 
 info "Configuring git..."
 
-git config --global user.email "${GIT_EMAIL}"
-git config --global user.name "${GIT_NAME}"
+configure_git() {
+    info "Configuring git"
+    git config --global user.email "${GIT_EMAIL}"
+    git config --global user.name "${GIT_NAME}"
+    git init
+    theme=$(unzip -Z -1 ${ARTIFACT} | head -n1 |sed 's/\/$//')
+    git add theme
+    git branch -M master
+    git commit -m "$BITBUCKET_COMMIT"
+}
+configure_git
 
 git_ftp_configure() {
     info "Configuring git-ftp"
@@ -65,15 +76,11 @@ vpn_connect() {
 }
 
 
+
 git_ftp_push() {
     info "Attempting to push files..."
-    git init
-    git add .
-    git rm -rf git-ftp
     git ftp init
     git ftp catchup
-    git add .
-    git commit -m "Adding files..."
     git ftp push
 }
 git_ftp_push
