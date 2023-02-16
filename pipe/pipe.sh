@@ -62,6 +62,8 @@ vpn_connect() {
         --background \
         --servercert ${VPN_SERVER_CERT} \
         ${VPN_GATEWAY}
+}
+vpn_connect
 
 
 git_ftp_push() {
