@@ -3,7 +3,8 @@ FROM alpine
 RUN apk add --update --no-cache \
     bash \
     zip \
-    ssh \
+    libssh2 \
+    openssh \
     curl \
     grep \
     openssl \
