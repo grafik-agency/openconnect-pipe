@@ -79,7 +79,7 @@ vpn_connect() {
 
 git_ftp_push() {
     info "Attempting to push files..."
-    cd deploy
+    pwd
     git ftp init
     git ftp catchup
     git ftp push
