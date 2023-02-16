@@ -29,6 +29,7 @@ ARTIFACT=${ARTIFACT:?'ARTIFACT variable missing.'}
 
 
 info "Running OpenConnect pipe..."
+curl -V
 
 configure_git() {
     info "Configuring git"
