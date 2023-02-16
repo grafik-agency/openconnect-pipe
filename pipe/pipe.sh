@@ -44,6 +44,7 @@ configure_git() {
     git add $BITBUCKET_REPO_SLUG 
     git branch -M master
     git commit -m "$BITBUCKET_COMMIT"
+    cd ../
 }
 configure_git
 
