@@ -60,9 +60,9 @@ vpn_connect() {
         --user ${VPN_USER} \
         --passwd-on-stdin \
         --background \
-        --servercert ${VPN_SERVER_CERT} \
+        --no-cert-check \
         ${VPN_GATEWAY} \
-        -vvvvv
+        -v
 }
 
 

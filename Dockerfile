@@ -5,7 +5,7 @@ RUN apk add --update --no-cache \
     openssl \
     make \
     git \
-    openconnect
+    openconnect=7.07
 
 COPY pipe /
 COPY pipe.yml README.md /
