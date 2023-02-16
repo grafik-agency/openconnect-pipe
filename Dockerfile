@@ -1,4 +1,4 @@
-FROM archlinux
+FROM archlinux:latest
 
 RUN pacman -Syu
 RUN pacman-key --init
