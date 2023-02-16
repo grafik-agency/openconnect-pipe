@@ -44,11 +44,11 @@ git_ftp_configure() {
     # checkout the latest tag
     git checkout "$tag"
     make install
-    cd
 
     git config git-ftp.url "${FTP_SERVER}"
     git config git-ftp.user "${FTP_USER}"
     git config git-ftp.password "${FTP_PASSWORD}"
+    cd
 }
 git_ftp_configure
 
