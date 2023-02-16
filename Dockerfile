@@ -2,6 +2,7 @@ FROM alpine
 
 RUN apk add --update --no-cache \
     bash \
+    openssl \
     make \
     git \
     openconnect
