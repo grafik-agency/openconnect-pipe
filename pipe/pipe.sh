@@ -54,12 +54,15 @@ git_ftp_configure
 
 vpn_connect() {
     info "Attempting to connect to VPN"
-    echo ${VPN_PASSWORD} | openconnect \
+    openconnect \
         --protocol=${VPN_PROTOCOL} \
         --user ${VPN_USER} \
         --passwd-on-stdin \
         --background \
         ${VPN_GATEWAY}
+
+    echo ${VPN_PASSWORD}
+    echo yes
 }
 vpn_connect
 
