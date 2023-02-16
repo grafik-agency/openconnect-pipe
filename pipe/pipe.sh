@@ -62,7 +62,7 @@ git_ftp_configure() {
     git config git-ftp.url "${FTP_SERVER}"
     git config git-ftp.user "${FTP_USER}"
     git config git-ftp.password "${FTP_PASSWORD}"
-    cd
+    cd ../
 }
 git_ftp_configure
 
@@ -80,6 +80,7 @@ vpn_connect() {
 git_ftp_push() {
     info "Attempting to push files..."
     pwd
+    cd deploy
     git ftp init
     git ftp catchup
     git ftp push
