@@ -79,7 +79,7 @@ git_ftp_push() {
     info "Attempting to push files..."
     cd deploy
     pwd
-    git ftp init --user {$FTP_USERNAME} --passwd {$FTP_PASSWORD} {$FTP_SERVER}
+    git ftp init --user ${FTP_USERNAME} --passwd ${FTP_PASSWORD} ${FTP_SERVER}
     git ftp catchup
     git ftp push
 }
