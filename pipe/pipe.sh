@@ -25,7 +25,6 @@ FTP_USER=${FTP_USER:?'FTP_USER variable missing.'}
 FTP_PASSWORD=${FTP_PASSWORD:?'FTP_PASSWORD variable missing.'}
 GIT_NAME=${GIT_NAME:?'GIT_NAME variable missing.'}
 GIT_EMAIL=${GIT_EMAIL:?'GIT_EMAIL variable missing.'}
-THEME_NAME=${THEME_NAME:?'THEME_NAME variable missing.'}
 ARTIFACT=${ARTIFACT:?'ARTIFACT variable missing.'}
 
 
