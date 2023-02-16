@@ -2,12 +2,8 @@ FROM alpine
 
 RUN apk add --update --no-cache \
     bash \
-    curl \
+    make \
     git \
-    openssh \
-    sshpass \
-    grep \
-    zip \
     openconnect
 
 COPY pipe /
