@@ -67,6 +67,9 @@ vpn_connect() {
 
 git_ftp_push() {
     info "Attempting to push files..."
+    git init
+    git add .
+    git rm -rf git-ftp
     git ftp init
     git ftp catchup
     git add .
