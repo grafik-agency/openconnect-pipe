@@ -1,14 +1,6 @@
-FROM archlinux:latest
+FROM atlassian/default-image:4
 
-RUN pacman -Syu
-RUN pacman-key --init
-RUN pacman -S \
-    bash \
-    zip \
-    openssh \
-    grep \
-    openssl \
-    git \
+RUN apt update && apt upgrade && install \
     openconnect
 
 COPY pipe /
