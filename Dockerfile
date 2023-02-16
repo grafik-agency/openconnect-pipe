@@ -2,6 +2,8 @@ FROM alpine
 
 RUN apk add --update --no-cache \
     bash \
+    zip \
+    grep \
     openssl \
     make \
     git \
