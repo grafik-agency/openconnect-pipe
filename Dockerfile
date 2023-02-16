@@ -1,6 +1,7 @@
 FROM atlassian/default-image:4
 
-RUN apt update && apt upgrade && apt install \
+RUN apt-get update && \
+    apt-get install -y \
     openconnect
 
 COPY pipe /
