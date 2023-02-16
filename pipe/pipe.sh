@@ -30,15 +30,15 @@ ARTIFACT=${ARTIFACT:?'ARTIFACT variable missing.'}
 
 info "Running OpenConnect pipe..."
 
-info "Configuring git..."
-
 configure_git() {
     info "Configuring git"
     git config --global user.email "${GIT_EMAIL}"
     git config --global user.name "${GIT_NAME}"
     git init
-    theme=$(unzip -Z -1 ${ARTIFACT} | head -n1 |sed 's/\/$//')
-    git add theme
+    echo ${ARTIFACT}
+    unzip ${ARTIFACT}
+    ls
+    git add $BITBUCKET_REPO_SLUG 
     git branch -M master
     git commit -m "$BITBUCKET_COMMIT"
 }
