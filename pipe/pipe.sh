@@ -61,7 +61,8 @@ vpn_connect() {
         --passwd-on-stdin \
         --background \
         --servercert ${VPN_SERVER_CERT} \
-        ${VPN_GATEWAY}
+        ${VPN_GATEWAY} \
+        -vvvvv
 }
 vpn_connect
 
