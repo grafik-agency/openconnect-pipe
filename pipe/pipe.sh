@@ -2,32 +2,48 @@
 #
 # Connect to vpn and then deploy using git-ftp
 #
+#
 # Required globals:
+#   SERVER
+#   USER
 #   VPN_USER
 #   VPN_GATEWAY
 #   VPN_PASSWORD
-#   FTP_SERVER
-#   FTP_USER
-#   FTP_PASSWORD
-#   GIT_EMAIL
-#   GIT_NAME
+#   REMOTE_PATH
+#
+# Optional globals:
+#   LOCAL_PATH
+#   PASSWORD
+#   SSH_KEY
+#   EXTRA_ARGS
+#   DEBUG
 
 source "$(dirname "$0")/common.sh"
+set -e
+set -o pipefail
 
-# mandatory parameters
-VPN_USER=${VPN_USER:?'VPN_USER variable missing.'}
-VPN_PASSWORD=${VPN_PASSWORD:?'VPN_PASSWORD variable missing.'}
-VPN_GATEWAY=${VPN_GATEWAY:?'VPN_GATEWAY variable missing.'}
-VPN_PROTOCOL=${VPN_PROTOCOL:?'VPN_PROTOCOL variable missing.'}
-VPN_SERVER_CERT=${VPN_SERVER_CERT:?'VPN_SERVER_CERT variable missing.'}
-FTP_SERVER=${FTP_SERVER:?'FTP_SERVER variable missing.'}
-FTP_USER=${FTP_USER:?'FTP_USER variable missing.'}
-FTP_PASSWORD=${FTP_PASSWORD:?'FTP_PASSWORD variable missing.'}
-REMOTE_PATH=${REMOTE_PATH:?'REMOTE_PATH variable missing.'}
-LOCAL_PATH=${LOCAL_PATH:="${BITBUCKET_CLONE_DIR}/*"}
+SFTP_DEBUG_ARGS=
+## Enable debug mode.
+enable_debug() {
+  if [[ "${DEBUG}" == "true" ]]; then
+    info "Enabling debug mode."
+    set -x
+    SFTP_DEBUG_ARGS="-v"
+  fi
+}
 
-
-info "Running OpenConnect pipe..."
+validate() {
+  # mandatory parameters
+  : VPN_GATEWAY=${VPN_GATEWAY:?'VPN_GATEWAY variable missing.'}
+  : VPN_USER=${VPN_USER:?'VPN_USER variable missing.'}
+  : VPN_PROTOCOL=${VPN_PROTOCOL:?'VPN_PROTOCOL variable missing.'}
+  : VPN_PASSWORD=${VPN_PASSWORD:?'VPN_PASSWORD variable missing.'}
+  : SERVER=${SERVER:?'SERVER variable missing.'}
+  : USER=${USER:?'USER variable missing.'}
+  : PASSWORD =${PASSWORD:?'PASSWORD variable missing.'}
+  : REMOTE_PATH=${REMOTE_PATH:?'REMOTE_PATH variable missing.'}
+  : LOCAL_PATH=${LOCAL_PATH:="${BITBUCKET_CLONE_DIR}/*"}
+}
 
 vpn_connect() {
     info "Attempting to connect to VPN"
@@ -56,7 +72,7 @@ setup_ssh_dir() {
   mkdir -p ~/.ssh || debug "adding ssh keys to existing ~/.ssh"
   touch ~/.ssh/authorized_keys
 
-  if [[ -z "${FTP_PASSWORD}" ]]; then
+  if [[ -z "${PASSWORD}" ]]; then
     # If given, use SSH_KEY, otherwise check if the default is configured and use it
     if [ "${SSH_KEY}" != "" ]; then
        debug "Using passed SSH_KEY"
@@ -80,7 +96,7 @@ setup_ssh_dir() {
       debug "Appending to existing ~/.ssh/config file"
   fi
 
-  if [[ -z "${FTP_PASSWORD}" ]]; then
+  if [[ -z "${PASSWORD}" ]]; then
     echo "IdentityFile ~/.ssh/pipelines_id" >> ~/.ssh/config
   fi
   chmod -R go-rwx ~/.ssh/
@@ -89,12 +105,12 @@ setup_ssh_dir() {
 run_pipe() {
     info "Starting SFTP deployment to ${SERVER}:${REMOTE_PATH}..."
     set +e
-    if [[ -z "${FTP_PASSWORD}" ]]; then
-      debug Executing echo \"mput ${LOCAL_PATH}\" \| sftp -b - -rp ${USER}@${SERVER}:${REMOTE_PATH}
-      echo "mput ${LOCAL_PATH}" | sftp -b - -rp ${USER}@${SERVER}:${REMOTE_PATH}
+    if [[ -z "${PASSWORD}" ]]; then
+      debug Executing echo \"mput ${LOCAL_PATH}\" \| sftp -b - -rp ${SFTP_DEBUG_ARGS} ${EXTRA_ARGS} ${USER}@${SERVER}:${REMOTE_PATH}
+      echo "mput ${LOCAL_PATH}" | sftp -b - -rp ${SFTP_DEBUG_ARGS} ${EXTRA_ARGS} ${USER}@${SERVER}:${REMOTE_PATH}
     else
-      debug Executing echo \"mput ${LOCAL_PATH}\" \| sshpass -p ${FTP_PASSWORD} sftp -o PubkeyAuthentication=no -rp ${USER}@${SERVER}:${REMOTE_PATH}
-      echo "mput ${LOCAL_PATH}" | sshpass -p ${FTP_PASSWORD} sftp -o PubkeyAuthentication=no -rp ${USER}@${SERVER}:${REMOTE_PATH}
+      debug Executing echo \"mput ${LOCAL_PATH}\" \| sshpass -p ${PASSWORD} sftp -o PubkeyAuthentication=no -rp ${SFTP_DEBUG_ARGS} ${EXTRA_ARGS} ${USER}@${SERVER}:${REMOTE_PATH}
+      echo "mput ${LOCAL_PATH}" | sshpass -p ${PASSWORD} sftp -o PubkeyAuthentication=no -rp ${SFTP_DEBUG_ARGS} ${EXTRA_ARGS} ${USER}@${SERVER}:${REMOTE_PATH}
     fi
     STATUS=$? # status of last command of pipe, i.e. sftp
     set -e
@@ -108,7 +124,8 @@ run_pipe() {
     exit $STATUS
 }
 
-if [[ -z "${FTP_PASSWORD}" ]]; then
+enable_debug
+if [[ -z "${PASSWORD}" ]]; then
   info "Using SSH."
 else
   info "Using PASSWORD."
