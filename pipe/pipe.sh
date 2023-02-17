@@ -124,6 +124,7 @@ run_pipe() {
     exit $STATUS
 }
 
+validate
 enable_debug
 if [[ -z "${PASSWORD}" ]]; then
   info "Using SSH."
