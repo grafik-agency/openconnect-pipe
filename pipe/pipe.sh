@@ -36,7 +36,7 @@ validate() {
   # mandatory parameters
   : VPN_GATEWAY=${VPN_GATEWAY:?'VPN_GATEWAY variable missing.'}
   : VPN_USER=${VPN_USER:?'VPN_USER variable missing.'}
-  : VPN_PROTOCOL=${VPN_PROTOCOL:?'VPN_PROTOCOL variable missing.'}
+  : VPN_PROTOCOL=${VPN_PROTOCOL:="anyconnect"}
   : VPN_PASSWORD=${VPN_PASSWORD:?'VPN_PASSWORD variable missing.'}
   : SERVER=${SERVER:?'SERVER variable missing.'}
   : USER=${USER:?'USER variable missing.'}
