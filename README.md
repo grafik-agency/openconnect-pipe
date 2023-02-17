@@ -29,6 +29,19 @@ Add a step to your pipeline and include the pipe like below (replace the values 
           # PORT: '<string>" # Optional (Default "22").
           # VPN_PROTOCOL: '<string> # Optional (Default "anyconnect").
           # ARTIFACT: '<string>' # Optional (Will default to sending entire repo)
+          # LOCAL_PATH: '<strin>' # Defaults to $BITBUCKET_CLONE_DIR
+
 ```
+
+## Variables
+
+VPN_USER: username for your VPN, add ths as a repository variable.
+VPN_PASSWORD: password for your VPN, add this as a secret variable.
+VPN_GATEWAY: Server url, or IP for the VPN. Must have a secure certificate.
+SERVER: SFTP server address
+USER: SFTP username
+PASSWORD: SFTP password
+
+---
 
 Built and maintained by Grafik
