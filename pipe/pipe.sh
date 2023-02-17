@@ -44,18 +44,29 @@ enable_debug() {
   fi
 }
 
+
 validate() {
-  # mandatory parameters
-  : VPN_GATEWAY=${VPN_GATEWAY:?'VPN_GATEWAY variable missing.'}
-  : VPN_USER=${VPN_USER:?'VPN_USER variable missing.'}
-  : VPN_PROTOCOL=${VPN_PROTOCOL:="anyconnect"}
-  : VPN_PASSWORD=${VPN_PASSWORD:?'VPN_PASSWORD variable missing.'}
-  : SERVER=${SERVER:?'SERVER variable missing.'}
-  : USER=${USER:?'USER variable missing.'}
-  : PASSWORD =${PASSWORD:?'PASSWORD variable missing.'}
-  : REMOTE_PATH=${REMOTE_PATH:?'REMOTE_PATH variable missing.'}
-  : LOCAL_PATH=${LOCAL_PATH:="${BITBUCKET_CLONE_DIR}"}
-  : PORT=${PORT:="22"}
+    # mandatory parameters
+    : VPN_GATEWAY=${VPN_GATEWAY:?'VPN_GATEWAY variable missing.'}
+    : VPN_USER=${VPN_USER:?'VPN_USER variable missing.'}
+    : VPN_PROTOCOL=${VPN_PROTOCOL:="anyconnect"}
+    : VPN_PASSWORD=${VPN_PASSWORD:?'VPN_PASSWORD variable missing.'}
+    : SERVER=${SERVER:?'SERVER variable missing.'}
+    : USER=${USER:?'USER variable missing.'}
+    : PASSWORD =${PASSWORD:?'PASSWORD variable missing.'}
+    : REMOTE_PATH=${REMOTE_PATH:?'REMOTE_PATH variable missing.'}
+    : LOCAL_PATH=${LOCAL_PATH:="${BITBUCKET_CLONE_DIR}/*"}
+    : PORT=${PORT:="22"}
+}
+
+handle_artifact() {
+    if [[ -z ${ARTIFACT} ]]; then
+        debug "using default local path"
+    else
+        dir=$(unzip -Z -1 ${ARTIFACT} | head -n1 |sed 's/\/$//')
+        debug "using ${dir} as local path"
+        LOCAL_PATH=$dir
+    fi
 }
 
 vpn_connect() {
@@ -142,6 +153,7 @@ run_pipe() {
 
 validate
 enable_debug
+handle_artifact
 if [[ -z "${PASSWORD}" ]]; then
   info "Using SSH."
 else
