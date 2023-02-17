@@ -54,7 +54,7 @@ validate() {
   : USER=${USER:?'USER variable missing.'}
   : PASSWORD =${PASSWORD:?'PASSWORD variable missing.'}
   : REMOTE_PATH=${REMOTE_PATH:?'REMOTE_PATH variable missing.'}
-  : LOCAL_PATH=${LOCAL_PATH:="${BITBUCKET_CLONE_DIR}/*"}
+  : LOCAL_PATH=${LOCAL_PATH:="${BITBUCKET_CLONE_DIR}"}
   : PORT=${PORT:="22"}
 }
 
