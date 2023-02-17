@@ -18,9 +18,21 @@
 #   EXTRA_ARGS
 #   DEBUG
 
-source "$(dirname "$0")/common.sh"
 set -e
 set -o pipefail
+
+grey="\\e[37m"
+blue="\\e[36m"
+red="\\e[31m"
+green="\\e[32m"
+reset="\\e[0m"
+
+# Logging, loosely based on http://www.ludovicocaldara.net/dba/bash-tips-4-use-logging-levels/
+info() { echo -e "${blue}INFO: $*${reset}"; }
+error() { echo -e "${red}ERROR: $*${reset}"; }
+debug() { if [[ "${DEBUG}" == "true" ]]; then echo -e "${grey}DEBUG: $*${reset}"; fi }
+success() { echo -e "${green}✔ $*${reset}"; }
+fail() { echo -e "${red}✖ $*${reset}"; }
 
 SFTP_DEBUG_ARGS=
 ## Enable debug mode.
