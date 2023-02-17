@@ -59,8 +59,12 @@ validate() {
 }
 
 handle_artifact() {
-    info "Extracting Artifact"
-    unzip ${ARTIFACT}
+    if [[ -z "${ARTIFACT}" ]]; then
+        echo ""
+    else
+        info "Sending $"
+        unzip ${ARTIFACT}
+    fi
 }
 
 vpn_connect() {
