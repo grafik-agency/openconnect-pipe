@@ -54,20 +54,13 @@ validate() {
     : USER=${USER:?'USER variable missing.'}
     : PASSWORD =${PASSWORD:?'PASSWORD variable missing.'}
     : REMOTE_PATH=${REMOTE_PATH:?'REMOTE_PATH variable missing.'}
+    : LOCAL_PATH=${LOCAL_PATH:="${BITBUCKET_CLONE_DIR}/*"}
     : PORT=${PORT:="22"}
 }
 
-LOCAL_PATH=
 handle_artifact() {
-    info "Setting LOCAL_PATH"
-    if [[ -z ${ARTIFACT} ]]; then
-        debug "using default local path"
-        LOCAL_PATH="${BITBUCKET_CLONE_DIR}/*"
-    else
-        dir=$(unzip -Z -1 ${ARTIFACT} | head -n1 |sed 's/\/$//')
-        debug "using ${dir} as local path"
-        LOCAL_PATH=$dir
-    fi
+    info "Extracting Artifact"
+    unzip ${ARTIFACT}
 }
 
 vpn_connect() {
