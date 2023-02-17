@@ -12,7 +12,7 @@ Add a step to your pipeline and include the pipe like below (replace the values 
 
 ```yml
   step:
-    name: git-ftp and openconnect
+    name: sftp and openconnect
     script:
       - pipe: docker://grafikdev/openconnect-pipe:latest
         variables:
