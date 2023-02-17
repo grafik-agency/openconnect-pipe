@@ -3,6 +3,9 @@
 This pipe will connect to a secure vpn to allow pushing
 repo files using git-ftp.
 
+Open connect is currently not working for some hosts. We are working to resolve.
+Currently this is just a modifed version of [Bitbucket sftp-deploy pipe](https://bitbucket.org/atlassian/sftp-deploy/src)
+
 ## How it works
 
 Add a step to your pipeline and include the pipe like below (replace the values in < >).
