@@ -35,14 +35,14 @@ success() { echo -e "${green}✔ $*${reset}"; }
 fail() { echo -e "${red}✖ $*${reset}"; }
 
 SFTP_DEBUG_ARGS=
-VPN_DEBU_ARGS=
+VPN_DEBUG_ARGS=
 ## Enable debug mode.
 enable_debug() {
   if [[ "${DEBUG}" == "true" ]]; then
     info "Enabling debug mode."
     set -x
     SFTP_DEBUG_ARGS="-v"
-    VPN_DEBU_ARGS="-v"
+    VPN_DEBUG_ARGS="-v"
   fi
 }
 
@@ -76,14 +76,9 @@ vpn_connect() {
         --user ${VPN_USER} \
         --passwd-on-stdin \
         --background \
-        ${VPN_DEBU_ARGS} \
+        ${VPN_DEBUG_ARGS} \
         ${VPN_GATEWAY}
 
-    if [[ "${STATUS}" == "0" ]]; then
-      success "Deployment finished."
-    else
-      fail "Deployment failed."
-    fi
 }
 
 setup_ssh_dir() {
