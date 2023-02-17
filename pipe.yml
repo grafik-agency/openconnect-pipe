@@ -1,29 +1,27 @@
-name: WP Engine Deploy
+name: SFTP & openconnect
 image: bitbucketpipelines/aws-s3-deploy:1.1.0
-description: Deploy to WP Engine.
+description: Connect to a vpn to transfer files using sftp.
 category: Deployment
-repository: https://bitbucket.org/2120creative/wpengine-pipe/src/master/
+repository: https://github.com/grafik-agency/openconnect-pipe
 maintainer:
   name: Grafik
   website: https://grafik.agency/
 variables:
-  - name: WPE_REPO_URL
-    default: $WPE_REPO_URL
-  - name: GIT_EMAIL
-    default: "$GIT_EMAIL"
-  - name: GIT_NAME
-    default: "$GIT_NAME"
+  - name: VPN_USER
+    default: $VPN_USER
+  - name: VPN_PASSWORD
+    default: $VPN_PASSWORD
+  - name: VPN_GATEWAY
+    default: $VPN_GATEWAY
   - name: ARTIFACT
     default: $ARTIFACT
-  - name: WPE_INSTALL_ID
-    default: $WPE_INSTALL_ID
-  - name: WPE_API_USER
-    default: $WPE_API_USER
-  - name: WPE_API_PASSWORD
-    default: $WPE_API_PASSWORD
+  - name: SERVER
+    default: $SERVER
+  - name: USER
+    default: $USER
+  - name: PASSWORD
+    default: $PASSWORD
 tags:
 - deployment
-- WP Engine
-- wpengine
-- WordPress
-- git
+- openconnect
+- sftp
