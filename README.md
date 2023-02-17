@@ -35,12 +35,12 @@ Add a step to your pipeline and include the pipe like below (replace the values 
 
 ## Variables
 
-VPN_USER: username for your VPN, add ths as a repository variable.
-VPN_PASSWORD: password for your VPN, add this as a secret variable.
-VPN_GATEWAY: Server url, or IP for the VPN. Must have a secure certificate.
-SERVER: SFTP server address
-USER: SFTP username
-PASSWORD: SFTP password
+- VPN_USER: username for your VPN, add ths as a repository variable.
+- VPN_PASSWORD: password for your VPN, add this as a secret variable.
+- VPN_GATEWAY: Server url, or IP for the VPN. Must have a secure certificate.
+- SERVER: SFTP server address
+- USER: SFTP username
+- PASSWORD: SFTP password
 
 ---
 
