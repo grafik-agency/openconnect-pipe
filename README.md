@@ -27,7 +27,8 @@ Add a step to your pipeline and include the pipe like below (replace the values 
           # EXTRA_ARGS: '<string>' # Optional.
           # DEBUG: '<boolean>' # Optional.
           # PORT: '<string>" # Optional (Default "22").
-          # VPN_PROTOCOL: '<string>" # Optional (Default "anyconnect").
+          # VPN_PROTOCOL: '<string> # Optional (Default "anyconnect").
+          # ARTIFACT: '<string>' # Optional (Will default to sending entire repo)
 ```
 
 Built and maintained by Grafik
