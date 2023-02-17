@@ -1,7 +1,15 @@
-FROM atlassian/default-image:4
+FROM alpine
 
-RUN apt-get update && \
-    apt-get install -y \
+RUN apk add --update --no-cache \
+    bash \
+    curl \
+    git \
+    openssh \
+    sshpass \
+    grep \
+    zip \
+    wget \
+    sshpass \
     openconnect
 
 COPY pipe /
