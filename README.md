@@ -16,11 +16,15 @@ Add a step to your pipeline and include the pipe like below (replace the values 
           VPN_USER: $VPN_USER
           VPN_PASSWORD: $VPN_PASSWORD  
           VPN_GATEWAY: $VPN_GATEWAY 
-          FTP_SERVER: $FTP_SERVER
-          FTP_USER: $FTP_USER          
-          FTP_PASSWORD: $FTP_PASSWORD
-          GIT_EMAIL: <git_email> # notified of backup
-          GIT_NAME: <git_name> # can be anything
+          SERVER: $SERVER
+          USER: $USER          
+          PASSWORD: $PASSWORD
+          # SSH_KEY: '<string>' # Optional.
+          # PASSWORD: '<string>' # Optional.
+          # EXTRA_ARGS: '<string>' # Optional.
+          # DEBUG: '<boolean>' # Optional.
+          # PORT: '<string>" # Optional (Default "22").
+          # VPN_PROTOCOL: '<string>" # Optional (Default "anyconnect").
 ```
 
 Built and maintained by Grafik
