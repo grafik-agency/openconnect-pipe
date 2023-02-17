@@ -131,4 +131,4 @@ else
   info "Using PASSWORD."
 fi
 setup_ssh_dir
-sftp_deploy
+run_pipe
