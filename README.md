@@ -1,4 +1,4 @@
-# Git Push & Openconnect Bitbucket Pipe
+# SFTP & Openconnect Bitbucket Pipe
 
 This pipe will connect to a secure vpn to allow pushing
 repo files using sftp.
