@@ -1,7 +1,7 @@
 # Git Push & Openconnect Bitbucket Pipe
 
 This pipe will connect to a secure vpn to allow pushing
-repo files using git-ftp.
+repo files using sftp.
 
 Open connect is currently not working for some hosts. We are working to resolve.
 Currently this is just a modifed version of [Bitbucket sftp-deploy pipe](https://bitbucket.org/atlassian/sftp-deploy/src)
