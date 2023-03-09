@@ -21,8 +21,8 @@ Add a step to your pipeline and include the pipe like below (replace the values 
           VPN_GATEWAY: $VPN_GATEWAY
           SERVER: $SERVER
           USER: $USER
+          PASSWORD: $PASSWORD # Password for sftp.
           # SSH_KEY: '<string>' # Optional.
-          # PASSWORD: '<string>' # Optional.
           # VPN_EXTRA_ARGS: '<string>' # Optionally pass in additional flags for openconnect.
           # SFTP_EXTRA_ARGS: '<string>' # Optionally pass in additional flags for sftp.
           # DEBUG: '<boolean>' # Optional.
@@ -47,7 +47,6 @@ Add a step to your pipeline and include the pipe like below (replace the values 
 ### Optional
 
 - SSH_KEY
-- PASSWORD
 - VPN_EXTRA_ARGS
 - SFTP_EXTRA_ARGS
 - DEBUG
