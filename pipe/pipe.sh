@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Connect to vpn and then deploy using git-ftp
+# Connect to vpn and then deploy using sftp
 #
 #
 # Required globals:
@@ -15,7 +15,8 @@
 #   LOCAL_PATH
 #   PASSWORD
 #   SSH_KEY
-#   EXTRA_ARGS
+#   VPN_EXTRA_ARGS
+#   SFTP_EXTRA_ARGS
 #   DEBUG
 
 set -e
@@ -76,8 +77,9 @@ vpn_connect() {
         --user ${VPN_USER} \
         --passwd-on-stdin \
         --background \
+        ${VPN_EXTRA_ARGS} \
         ${VPN_DEBUG_ARGS} \
-        ${VPN_GATEWAY}
+        --server ${VPN_GATEWAY}
 
 }
 
@@ -109,7 +111,7 @@ setup_ssh_dir() {
         error "No SSH known_hosts configured in Pipelines."
         exit 2
     fi
-    
+
     # copy know_hosts from repo to pipe
     cat ${KNOWN_HOSTS_FILE} >> ~/.ssh/known_hosts
     # fetch host from server and add to known_hosts
@@ -128,11 +130,11 @@ run_pipe() {
     info "Starting SFTP deployment to ${SERVER}:${REMOTE_PATH}..."
     set +e
     if [[ -z "${PASSWORD}" ]]; then
-      debug Executing echo \"mput ${LOCAL_PATH}\" \| sftp -b - -rp ${SFTP_DEBUG_ARGS} ${EXTRA_ARGS} -P ${PORT} ${USER}@${SERVER}:${REMOTE_PATH}
-      echo "mput ${LOCAL_PATH}" | sftp -b - -rp ${SFTP_DEBUG_ARGS} ${EXTRA_ARGS} -P ${PORT} ${USER}@${SERVER}:${REMOTE_PATH}
+      debug Executing echo \"mput ${LOCAL_PATH}\" \| sftp -b - -rp ${SFTP_DEBUG_ARGS} ${SFTP_EXTRA_ARGS} -P ${PORT} ${USER}@${SERVER}:${REMOTE_PATH}
+      echo "mput ${LOCAL_PATH}" | sftp -b - -rp ${SFTP_DEBUG_ARGS} ${SFTP_EXTRA_ARGS} -P ${PORT} ${USER}@${SERVER}:${REMOTE_PATH}
     else
-      debug Executing echo \"mput ${LOCAL_PATH}\" \| sshpass -p ${PASSWORD} sftp -o PubkeyAuthentication=no -rp ${SFTP_DEBUG_ARGS} ${EXTRA_ARGS} -P ${PORT} ${USER}@${SERVER}:${REMOTE_PATH}
-      echo "mput ${LOCAL_PATH}" | sshpass -p ${PASSWORD} sftp -o PubkeyAuthentication=no -rp ${SFTP_DEBUG_ARGS} ${EXTRA_ARGS} -P ${PORT} ${USER}@${SERVER}:${REMOTE_PATH}
+      debug Executing echo \"mput ${LOCAL_PATH}\" \| sshpass -p ${PASSWORD} sftp -o PubkeyAuthentication=no -rp ${SFTP_DEBUG_ARGS} ${SFTP_EXTRA_ARGS} -P ${PORT} ${USER}@${SERVER}:${REMOTE_PATH}
+      echo "mput ${LOCAL_PATH}" | sshpass -p ${PASSWORD} sftp -o PubkeyAuthentication=no -rp ${SFTP_DEBUG_ARGS} ${SFTP_EXTRA_ARGS} -P ${PORT} ${USER}@${SERVER}:${REMOTE_PATH}
     fi
     STATUS=$? # status of last command of pipe, i.e. sftp
     set -e
