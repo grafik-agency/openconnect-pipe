@@ -17,14 +17,15 @@ Add a step to your pipeline and include the pipe like below (replace the values 
       - pipe: docker://grafikdev/openconnect-pipe:latest
         variables:
           VPN_USER: $VPN_USER
-          VPN_PASSWORD: $VPN_PASSWORD  
-          VPN_GATEWAY: $VPN_GATEWAY 
+          VPN_PASSWORD: $VPN_PASSWORD
+          VPN_GATEWAY: $VPN_GATEWAY
           SERVER: $SERVER
-          USER: $USER          
+          USER: $USER
           PASSWORD: $PASSWORD
           # SSH_KEY: '<string>' # Optional.
           # PASSWORD: '<string>' # Optional.
-          # EXTRA_ARGS: '<string>' # Optional.
+          # VPN_EXTRA_ARGS: '<string>' # Optionally pass in additional flags for openconnect.
+          # SFTP_EXTRA_ARGS: '<string>' # Optionally pass in additional flags for sftp.
           # DEBUG: '<boolean>' # Optional.
           # PORT: '<string>" # Optional (Default "22").
           # VPN_PROTOCOL: '<string>' # Optional (Default "anyconnect").
