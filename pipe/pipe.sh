@@ -157,4 +157,11 @@ else
   info "Using PASSWORD."
 fi
 setup_ssh_dir
+
+if [[ -z "${VPN_GATEWAY}" ]]; then
+    debug "Attempting to connect to VPN"
+    vpn_connect
+    success "VPN Connection Established!"
+fi
 run_pipe
+
